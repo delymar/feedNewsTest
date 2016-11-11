@@ -18,6 +18,6 @@
                 }
             })
 
-        $urlRouterProvider.otherwise('/dashboard');
+        $urlRouterProvider.otherwise('/');
     }
 })();

@@ -1,14 +1,14 @@
 <section id="landing" class="landing">
     <div class="container header">
-        <button class="button-new fa fa-bars fa-3x" ng-click="actions.Open()"></button>
-        <p ng-show="mostrar"></p>
+        <button class="button-new fa fa-bars fa-3x" ng-click="vm.open()"></button>
+        <span ng-show="vm.showTitle" class="titleOpen text-uppercase">{{vm.titleOpen}}</span>
     </div>
     <div class="news container">
         <div class="panel-group" id="accordion">
-            <div class="panel panel-default"  ng-repeat="new in news track by $index">
-                <div class="panel-heading">
+            <div class="panel panel-default" ng-class="{'panel-show': vm.show}" ng-repeat="new in vm.news track by $index">
+                <div class="panel-heading" ng-if="vm.show">
                     <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{$index}}" ng-click="actions.OpenDetails()">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{$index}}" ng-click="vm.OpenDetails(new.id)">
                             <div class="col-xs-4 col-sm-2">
                                 <img class=" img-responsive imge-thumbnail" src="{{new.image}}">
                             </div>
@@ -18,12 +18,12 @@
                         </a>
                     </h4>
                 </div>
-                <div id="collapse{{$index}}" class="panel-collapse collapse">
+                <div id="collapse{{$index}}" class="panel-collapse collapse" >
                     <div class="panel-body">
-                        <div class="col-xs-5 col-sm-4 imagen">
-                            <img class=" img-responsive imge-details" src="{{new.image}}">
+                        <div class="col-xs-4 imagen">
+                            <img class=" img-responsive " src="{{new.image}}">
                         </div>
-                        <div class="col-xs-7 col-sm-8 thumbnail-title">
+                        <div class="col-xs-8 thumbnail-title">
                             <div class="row title">
                                 <p class="text-uppercase">{{new.title}}</p>
                             </div>

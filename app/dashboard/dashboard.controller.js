@@ -7,24 +7,49 @@
     /* @ngInject */
     function dashboardController($scope, $state, apiService) {
         var vm = this;
-        vm.objeto=[];
-        $scope.mostrar=false;
+        vm.showTitle = false;
+        vm.show = false;
+        vm.titleOpen = "";
+        vm.lastId= "";
+        vm.collapse =false;
 
-        $scope.actions = {
-            Open: function () {
-                apiService.getAll().then(
-                    function success (resp) {
-                        $scope.news = resp;
-                    },
-                    function error (err) {
-                        console.log("err",err)
-                    }
-                );
-
+        apiService.getAll().then(
+            function success (resp) {
+                vm.news = resp;
             },
-            OpenDetails: function () {
-                $scope.mostrar = true;
+            function error (err) {
+                console.log("err",err)
             }
+        );
+
+        vm.open = function () {
+          vm.show = !vm.show;
+          if (!vm.show){
+            vm.showTitle = false;
+            angular.element('.panel-collapse').collapse('hide');
+          }
+        }
+
+        vm.OpenDetails = function (id) {
+          if(vm.lastId === id){
+            if(vm.showTitle){
+              vm.showTitle = !vm.showTitle;
+              if(!vm.showTitle)
+                return vm.titleOpen = "";
+            }
+          } else {
+            apiService.getById(id).then(
+              function success (resp) {
+                    vm.lastId = resp.id;
+                    vm.titleOpen = resp.title;
+                    vm.showTitle = true;
+                    vm.collapse = true;
+              },
+              function error (err) {
+                  console.log("err",err)
+              }
+            );
+          }
         }
     }
 })();

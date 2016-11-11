@@ -1,5 +1,5 @@
 .landing {
-  margin-left: 0px;
+  margin: 0px;
   padding: 0px;
   .header{
     width: 100%;
@@ -9,6 +9,13 @@
     height: 100px;
     background-color: @color-background-header;
     margin-bottom: 30px;
+    .titleOpen{
+      margin-left: 50px;
+      color: white;
+      font-size: 16px;
+      margin-top: 30px;
+      font-weight: bolder;
+    }
   }
   .button-new{
     margin-top: 20px;
@@ -18,10 +25,27 @@
   }
   .news{
       .panel-group{
-        .panel-default{
+        .panel-default {
           margin-bottom: 10px;
+          background-color: transparent;
+          border: none;
+          width: 0%;
+          transition-timing-function: linear;
+          -webkit-transition: all 0.1s linear;
+          -moz-transition: all 0.1s linear;
+          -o-transition: all 0.1s linear;
+          transition: all 0.1s linear;
+          &.panel-show {
+            width: 100% !important;
+            border-color: @color-value;
+            background-color: @color-body;
+            border: 1px solid transparent;
+            .panel-heading {
+              background-color: white;
+            }
+          }
           .panel-heading{
-            background-color: white;
+            background-color: transparent;
             border-color: inherit;
             .panel-title{
               height: 80px;
@@ -45,19 +69,15 @@
           .panel-collapse{
             .panel-body{
               border-top: 8px solid @color-background;
-              height:  200px;
+              height:  auto;
               padding: 0px;
               .imagen{
                 padding: 0px;
                 margin-right: 0px;
-                .imge-details{
-                  height: 192px;
-                  width: 350px;
-                }
               }
               .thumbnail-title{
                 padding-top: 20px;
-                padding-left: 50px;
+                padding-left: 0px;
                 padding-right: 40px;
                 .title{
                   font-size: 15px;
