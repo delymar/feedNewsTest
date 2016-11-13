@@ -1,6 +1,3 @@
-/**
- * Created by Delymar on 23/10/2016.
- */
 (function() {
     'use strict'
 

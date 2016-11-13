@@ -3,9 +3,9 @@
     angular.module('app')
         .controller('dashboardController', dashboardController);
 
-    dashboardController.$inject = ['$scope', '$state', 'apiService'];
+    dashboardController.$inject = ['apiService'];
     /* @ngInject */
-    function dashboardController($scope, $state, apiService) {
+    function dashboardController(apiService) {
         var vm = this;
         vm.showTitle = false;
         vm.show = false;
@@ -31,25 +31,22 @@
         }
 
         vm.OpenDetails = function (id) {
-          if(vm.lastId === id){
-            if(vm.showTitle){
-              vm.showTitle = !vm.showTitle;
-              if(!vm.showTitle)
-                return vm.titleOpen = "";
-            }
-          } else {
-            apiService.getById(id).then(
-              function success (resp) {
-                    vm.lastId = resp.id;
-                    vm.titleOpen = resp.title;
-                    vm.showTitle = true;
-                    vm.collapse = true;
-              },
-              function error (err) {
-                  console.log("err",err)
-              }
-            );
+          if(vm.lastId === id && vm.showTitle){
+            vm.showTitle = !vm.showTitle;
+            if(!vm.showTitle)
+              return vm.titleOpen = "";
           }
+          apiService.getById(id).then(
+            function success (resp) {
+                  vm.lastId = resp.id;
+                  vm.titleOpen = resp.title;
+                  vm.showTitle = true;
+                  vm.collapse = true;
+            },
+            function error (err) {
+                console.log("err",err)
+            }
+          );
         }
     }
 })();
